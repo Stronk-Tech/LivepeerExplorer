@@ -1,0 +1,260 @@
+/* OrchInfoViewer specific styles */
+
+.orch-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0;
+  width: 100%;
+}
+
+.orch-address-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--darker);
+  border-radius: 8px;
+  border: 1px solid var(--dark);
+}
+
+.ens-description {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding: 0.75rem;
+  background: var(--darkest);
+  border: 1px solid var(--dark);
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.ens-description h1,
+.ens-description h2,
+.ens-description h3,
+.ens-description h4,
+.ens-description h5,
+.ens-description h6 {
+  color: var(--lightest);
+  margin: 0.75rem 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.ens-description h1:first-child,
+.ens-description h2:first-child,
+.ens-description h3:first-child,
+.ens-description h4:first-child,
+.ens-description h5:first-child,
+.ens-description h6:first-child {
+  margin-top: 0;
+}
+
+.ens-description p {
+  margin: 0.5rem 0;
+  color: var(--light);
+}
+
+.ens-description p:first-child {
+  margin-top: 0;
+}
+
+.ens-description p:last-child {
+  margin-bottom: 0;
+}
+
+.ens-description a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ens-description a:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}
+
+.ens-description ul,
+.ens-description ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  color: var(--light);
+}
+
+.ens-description li {
+  margin: 0.25rem 0;
+}
+
+.ens-description blockquote {
+  margin: 0.75rem 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--blue);
+  background: rgba(37, 150, 190, 0.1);
+  font-style: italic;
+  color: var(--lighter);
+}
+
+.ens-description code {
+  background: var(--dark);
+  color: var(--cyan);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.85em;
+}
+
+.ens-description pre {
+  background: var(--dark);
+  color: var(--light);
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+  border: 1px solid var(--grey);
+}
+
+.ens-description pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.orch-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: var(--darker);
+  border: 1px solid var(--dark);
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  background: var(--dark);
+  border-color: var(--grey);
+  transform: translateY(-1px);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--lighter);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  color: var(--lightest);
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.stat-sub {
+  font-size: 0.8rem;
+  color: var(--light);
+  margin-top: 0.25rem;
+  font-family: monospace;
+}
+
+.orch-actions {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.copy-link-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border: 1px solid var(--button-border);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.copy-link-button:hover {
+  background: var(--button-hover-background);
+  color: var(--heading-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.copy-link-button img {
+  border-radius: 2px;
+}
+
+/* Legacy styles for compatibility */
+.stroke {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.stroke-smoll-left {
+  border-left: 2px solid var(--grey);
+  padding-left: 0.5rem;
+}
+
+.select-orch-light {
+  background: transparent;
+  color: var(--link-color);
+  border: none;
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.select-orch-light:hover {
+  color: var(--link-hover-color);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.select-orch-light img {
+  border-radius: 0.2em;
+}
+
+.dark-text {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .orch-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .stat-card {
+    padding: 0.75rem;
+  }
+  
+  .orch-address-section {
+    padding: 0.75rem;
+  }
+  
+  .ens-description {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+}

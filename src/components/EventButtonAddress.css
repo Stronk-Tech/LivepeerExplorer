@@ -1,0 +1,125 @@
+.event-button-address-container {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem;
+  background: var(--section-background);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s;
+  position: relative;
+  overflow: visible;
+}
+
+.event-button-address-container:hover {
+  background-color: var(--button-hover-background);
+}
+
+.event-button-address-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.event-button-address-img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Search button - stays small */
+.event-button-address-search-btn {
+  background: var(--button-background);
+  border: 1px solid var(--button-border);
+  color: var(--button-text-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.event-button-address-search-btn:hover {
+  background: var(--button-hover-background);
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Main address button - grows to fill space */
+.event-button-address-btn {
+  background: var(--button-background);
+  border: 1px solid var(--button-border);
+  color: var(--button-text-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.event-button-address-btn:hover {
+  background: var(--button-hover-background);
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Info button grows to fill available space */
+.event-button-address-info {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.event-button-address-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-color);
+}
+
+/* Text container */
+.event-button-address-text-container {
+  display: inline-block;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Abbreviated text */
+.event-button-address-text.abbreviated {
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Compact address button for table layout */
+.event-button-address-compact {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-family: monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.event-button-address-compact:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}

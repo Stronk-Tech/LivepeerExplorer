@@ -1,0 +1,123 @@
+.round-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 2rem;
+}
+
+.round-modal-content {
+  background-color: var(--darker);
+  border: 1px solid var(--dark);
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+}
+
+.round-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--dark);
+}
+
+.round-modal-title {
+  font-size: 1.5rem;
+  color: var(--lightest);
+  margin: 0;
+  font-weight: 600;
+}
+
+.round-modal-close {
+  background: none;
+  border: none;
+  color: var(--lighter);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin: -0.5rem;
+}
+
+.round-modal-close:hover {
+  background-color: var(--dark);
+  color: var(--lightest);
+}
+
+.round-modal-body {
+  padding: 1.5rem;
+}
+
+.round-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.round-info-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: var(--darkest);
+  border: 1px solid var(--dark);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.round-info-item:hover {
+  background: var(--dark);
+}
+
+.round-info-label {
+  font-size: 0.85rem;
+  color: var(--lighter);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.round-info-value {
+  font-size: 1rem;
+  color: var(--lightest);
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.round-loading,
+.round-error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--lighter);
+  font-size: 1rem;
+}
+
+.round-error {
+  color: var(--red);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .round-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .round-info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .round-modal-header,
+  .round-modal-body {
+    padding: 1rem;
+  }
+} 

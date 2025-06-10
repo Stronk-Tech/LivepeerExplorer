@@ -1,0 +1,123 @@
+/* OrchDelegatorViewer specific styles */
+
+.delegator-viewer-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--section-background);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  gap: 1rem;
+  height: 100%;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.delegator-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--heading-color);
+}
+
+.content-wrapper {
+  position: relative;
+  overflow: visible;
+  flex: 1;
+}
+
+.overflow-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  max-height: 100%;
+  padding-right: 0.5rem;
+  overflow-x: visible;
+}
+
+.delegator-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  background: var(--darker);
+  border: 1px solid var(--dark);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  gap: 0.5rem;
+  position: relative;
+  overflow: visible;
+}
+
+.delegator-item:hover {
+  background: var(--dark);
+  border-color: var(--grey);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.delegator-info {
+  width: 100%;
+  overflow: visible;
+  color: var(--lightest);
+  font-family: monospace;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.delegator-item:hover .delegator-info {
+  color: var(--cyan);
+}
+
+.delegator-address-wrapper {
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+.delegator-stats {
+  width: 100%;
+  color: var(--light);
+  font-size: 0.8rem;
+  text-align: right;
+  font-family: monospace;
+}
+
+.delegator-no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--lighter);
+  font-style: italic;
+}
+
+.delegator-vertical-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--grey);
+  margin: 0.5rem 0;
+}
+
+/* Scrollbar styling */
+.overflow-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-content::-webkit-scrollbar-track {
+  background: var(--darker);
+  border-radius: 3px;
+}
+
+.overflow-content::-webkit-scrollbar-thumb {
+  background: var(--grey);
+  border-radius: 3px;
+}
+
+.overflow-content::-webkit-scrollbar-thumb:hover {
+  background: var(--light);
+}
