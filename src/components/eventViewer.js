@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import moment from "moment";
 import EventButtonAddress from "./EventButtonAddress";
 import RoundViewer from "./RoundViewer";
 import "./eventViewer.css";
 
 const EventViewer = ({
-  rewardEvents, updateEvents, withdrawEvents, transferEvents, 
+  rewardEvents, updateEvents, withdrawEvents, transferEvents,
   redeemEvents, activateEvents, unbondEvents, stakeEvents,
   rewardActivated, updateActivated, withdrawActivated, transferActivated,
   redeemActivated, activateActivated, unbondActivated, stakeActivated,
@@ -16,7 +16,25 @@ const EventViewer = ({
   const [selectedRound, setSelectedRound] = useState(null);
   const eventsPerPage = 50;
 
+  // Optimization: Sort rounds once and keep track of search index
+  const [sortedRounds, setSortedRounds] = useState([]);
+  const roundSearchIndex = useRef(0); // Use ref instead of state to avoid re-renders
+
   const currentRound = rounds && rounds.length > 0 ? rounds[rounds.length - 1].number : null;
+
+  // Sort rounds once when rounds data changes
+  useEffect(() => {
+    if (rounds && rounds.length > 0) {
+      // Sort rounds by number (ascending) - assuming round numbers are sequential
+      const sorted = [...rounds].sort((a, b) => a.number - b.number);
+      setSortedRounds(sorted);
+      roundSearchIndex.current = 0; // Reset search index when rounds change
+
+    } else {
+      setSortedRounds([]);
+      roundSearchIndex.current = 0;
+    }
+  }, [rounds]);
 
   const filterType = [
     { events: rewardEvents, activated: rewardActivated, type: "reward" },
@@ -59,12 +77,12 @@ const EventViewer = ({
   if (amountFilter && parseFloat(amountFilter) > 0) {
     eventList = eventList.filter(event => {
       const amount = parseFloat(
-        event.amount || 
-        event.tokens || 
-        event.fees || 
-        event.value || 
-        event.stake || 
-        event.initialStake || 
+        event.amount ||
+        event.tokens ||
+        event.fees ||
+        event.value ||
+        event.stake ||
+        event.initialStake ||
         0
       );
       return amount >= parseFloat(amountFilter);
@@ -81,8 +99,8 @@ const EventViewer = ({
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [rewardActivated, updateActivated, withdrawActivated, transferActivated, 
-      redeemActivated, activateActivated, unbondActivated, stakeActivated, searchTerm, amountFilter]);
+  }, [rewardActivated, updateActivated, withdrawActivated, transferActivated,
+    redeemActivated, activateActivated, unbondActivated, stakeActivated, searchTerm, amountFilter]);
 
   const formatValue = (value) => {
     if (!value || value === "0") return "0";
@@ -120,22 +138,53 @@ const EventViewer = ({
     setShowRoundModal(true);
   };
 
-  // Function to find the round for an event based on block time
+  // Optimized function to find the round for an event
   const getRoundForEvent = (event) => {
+    // If event already has a round, use it
     if (event.round) return event.round;
-    
-    if (!rounds || rounds.length === 0) return currentRound;
-    
-    // Find the round that contains this block time
-    for (let i = rounds.length - 1; i >= 0; i--) {
-      const round = rounds[i];
-      if (event.blockTime >= round.startTime) {
-        return round.number;
+
+    // If no rounds data available, return null
+    if (!sortedRounds || sortedRounds.length === 0) return null;
+
+    // Now that we know rounds only have: blockNumber, blockTime, number
+    // We need to find the round whose blockNumber is closest to (but not greater than) the event's blockNumber
+
+    if (event.blockNumber) {
+      // Search from our current index forward
+      for (let i = Math.max(0, roundSearchIndex.current); i < sortedRounds.length; i++) {
+        const round = sortedRounds[i];
+
+        // If this round's block number is greater than the event's block number,
+        // then the previous round (if it exists) is the correct one
+        if (round.blockNumber > event.blockNumber) {
+          if (i > 0) {
+            const previousRound = sortedRounds[i - 1];
+            roundSearchIndex.current = Math.max(0, i - 5); // Update search index
+            return previousRound.number;
+          }
+          break;
+        }
+
+        // If this is the last round and event block is >= this round's block
+        if (i === sortedRounds.length - 1 && event.blockNumber >= round.blockNumber) {
+          roundSearchIndex.current = Math.max(0, i - 5);
+          return round.number;
+        }
+      }
+
+      // If not found in forward search, try backwards from current index
+      for (let i = Math.min(roundSearchIndex.current, sortedRounds.length - 1); i >= 0; i--) {
+        const round = sortedRounds[i];
+
+        if (event.blockNumber >= round.blockNumber) {
+          roundSearchIndex.current = Math.max(0, i - 5);
+          return round.number;
+        }
       }
     }
-    
-    // Fallback to current round
-    return currentRound;
+
+    // If we can't determine the round, return null to show "-"
+    return null;
   };
 
   return (
@@ -160,11 +209,11 @@ const EventViewer = ({
               const timestamp = moment(event.blockTime * 1000);
               const isoTimestamp = timestamp.format();
               const eventRound = getRoundForEvent(event);
-              
+
               return (
                 <tr key={`${event.transactionHash}-${index}`}>
                   <td>
-                    <a 
+                    <a
                       href={`https://etherscan.io/tx/${event.transactionHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -174,14 +223,14 @@ const EventViewer = ({
                     </a>
                   </td>
                   <td>
-                    <EventButtonAddress 
+                    <EventButtonAddress
                       address={event.address}
                       name=""
                       setSearchTerm={setSearchTerm}
                     />
                   </td>
                   <td>
-                    <span 
+                    <span
                       className="type-badge"
                       data-type={event.eventType}
                     >
@@ -189,7 +238,7 @@ const EventViewer = ({
                     </span>
                   </td>
                   <td>
-                    <a 
+                    <a
                       href={`https://etherscan.io/block/${event.blockNumber}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -211,12 +260,12 @@ const EventViewer = ({
                   </td>
                   <td>
                     <span className="value-amount">
-                      {event.amount ? `${formatValue(event.amount)}` : 
-                       event.tokens ? `${formatValue(event.tokens)}` :
-                       event.fees ? `${formatValue(event.fees)}` : 
-                       event.value ? `${formatValue(event.value)}` : 
-                       event.stake ? `${formatValue(event.stake)}` : 
-                       event.initialStake ? `${formatValue(event.initialStake)}` : '—'}
+                      {event.amount ? `${formatValue(event.amount)}` :
+                        event.tokens ? `${formatValue(event.tokens)}` :
+                          event.fees ? `${formatValue(event.fees)}` :
+                            event.value ? `${formatValue(event.value)}` :
+                              event.stake ? `${formatValue(event.stake)}` :
+                                event.initialStake ? `${formatValue(event.initialStake)}` : '—'}
                     </span>
                   </td>
                   <td>
@@ -231,7 +280,7 @@ const EventViewer = ({
                     ) : '—'}
                   </td>
                   <td>
-                    <span 
+                    <span
                       className="time-ago"
                       title={isoTimestamp}
                     >
