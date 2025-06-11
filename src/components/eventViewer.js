@@ -214,7 +214,7 @@ const EventViewer = ({
                 <tr key={`${event.transactionHash}-${index}`}>
                   <td>
                     <a
-                      href={`https://etherscan.io/tx/${event.transactionHash}`}
+                      href={`https://arbiscan.io/tx/${event.transactionHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hash-link"
@@ -239,7 +239,7 @@ const EventViewer = ({
                   </td>
                   <td>
                     <a
-                      href={`https://etherscan.io/block/${event.blockNumber}`}
+                      href={`https://arbiscan.io/block/${event.blockNumber}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block-link"
